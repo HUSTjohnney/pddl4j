@@ -32,11 +32,15 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- * This class implements the code of a Total-order Forward Decomposition Planner. The search method is an
- * implementation of the total order STN procedure describes in the book of Automated Planning of Ghallab and al.
+ * This class implements the code of a Total-order Forward Decomposition
+ * Planner. The search method is an
+ * implementation of the total order STN procedure describes in the book of
+ * Automated Planning of Ghallab and al.
  * page 239.
  *
- * <p>The command line to launch the planner is as follow:</p>
+ * <p>
+ * The command line to launch the planner is as follow:
+ * </p>
  *
  * <pre>
  * {@code
@@ -62,7 +66,10 @@ import java.util.PriorityQueue;
  * }
  * </pre>
  *
- * <p>Commande line example:</p>
+ * <p>
+ * Commande line example:
+ * </p>
+ * 
  * <pre>
  * {@code
  *     java -cp build/libs/pddl4j-4.0-all.jar fr.uga.pddl4j.planners.htn.stn.TFDPlanner
@@ -78,16 +85,7 @@ import java.util.PriorityQueue;
  *
  * @see fr.uga.pddl4j.planners.PlannerConfiguration
  */
-@CommandLine.Command(name = "TFD",
-    version = "TFD 2.0",
-    description = "Solves a specified planning problem using a Total-order Forward Decomposition strategy.",
-    sortOptions = false,
-    mixinStandardHelpOptions = true,
-    headerHeading = "Usage:%n",
-    synopsisHeading = "%n",
-    descriptionHeading = "%nDescription:%n%n",
-    parameterListHeading = "%nParameters:%n",
-    optionListHeading = "%nOptions:%n")
+@CommandLine.Command(name = "TFD", version = "TFD 2.0", description = "Solves a specified planning problem using a Total-order Forward Decomposition strategy.", sortOptions = false, mixinStandardHelpOptions = true, headerHeading = "Usage:%n", synopsisHeading = "%n", descriptionHeading = "%nDescription:%n%n", parameterListHeading = "%nParameters:%n", optionListHeading = "%nOptions:%n")
 public final class TFD extends AbstractSTNPlanner {
 
     /**
@@ -112,13 +110,17 @@ public final class TFD extends AbstractSTNPlanner {
     }
 
     /**
-     * Solves the planning problem and returns the first solution search found. The search method is an implementation
-     * of the total order STN procedure describes in the book of Automated Planning of Ghallab and al. page 239. The
-     * method can solve only totally ordered problem. If it is not the case, the method returns null.
+     * Solves the planning problem and returns the first solution search found. The
+     * search method is an implementation
+     * of the total order STN procedure describes in the book of Automated Planning
+     * of Ghallab and al. page 239. The
+     * method can solve only totally ordered problem. If it is not the case, the
+     * method returns null.
      *
      * @param problem the problem to be solved.
      * @return a solution search or null if it does not exist.
-     * @throws ProblemNotSupportedException if the problem to solve is not supported by the planner.
+     * @throws ProblemNotSupportedException if the problem to solve is not supported
+     *                                      by the planner.
      */
     @Override
     public Plan solve(final Problem problem) throws ProblemNotSupportedException {
@@ -169,7 +171,7 @@ public final class TFD extends AbstractSTNPlanner {
             if (currentNode.getTasks().isEmpty()) {
                 if (currentNode.getState().satisfy(problem.getGoal())) {
                     return super.extractPlan(currentNode, problem);
-                }  else {
+                } else {
                     if (LOGGER.isDebugEnabled()) {
                         Plan p = super.extractPlan(currentNode, problem);
                         LOGGER.debug("Found plan but goal not reached as follows:\n" + problem.toString(p) + "\n");
@@ -180,7 +182,8 @@ public final class TFD extends AbstractSTNPlanner {
                 int task = currentNode.popTask();
                 // Get the current state of the search
                 final State state = currentNode.getState();
-                // Get the relevant operators, i.e., action or method that are relevant for this task.
+                // Get the relevant operators, i.e., action or method that are relevant for this
+                // task.
                 final List<Integer> relevantOperators = problem.getTaskResolvers().get(task);
                 // Case of primitive task
                 if (problem.getTasks().get(task).isPrimtive()) {
@@ -188,8 +191,8 @@ public final class TFD extends AbstractSTNPlanner {
                         final Action action = problem.getActions().get(operator);
                         if (this.isInteractive()) {
                             LOGGER.info("\n======> Try to decompose primitive tasks "
-                                + problem.toString(problem.getTasks().get(task)) + " with \n\n"
-                                + problem.toString(action));
+                                    + problem.toString(problem.getTasks().get(task)) + " with \n\n"
+                                    + problem.toString(action));
                         }
                         if (state.satisfy(action.getPrecondition())) {
                             final TFDNode childNode = new TFDNode(currentNode);
@@ -219,8 +222,8 @@ public final class TFD extends AbstractSTNPlanner {
                         final Method method = problem.getMethods().get(operator);
                         if (this.isInteractive()) {
                             LOGGER.info("\n======> Try to decompose compound tasks "
-                                + problem.toString(problem.getTasks().get(task)) + " with\n\n"
-                                + problem.toString(method));
+                                    + problem.toString(problem.getTasks().get(task)) + " with\n\n"
+                                    + problem.toString(method));
                         }
                         if (state.satisfy(method.getPrecondition())) {
                             final TFDNode childNode = new TFDNode(currentNode);
