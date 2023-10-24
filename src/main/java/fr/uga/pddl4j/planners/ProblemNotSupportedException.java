@@ -18,7 +18,8 @@ package fr.uga.pddl4j.planners;
 import fr.uga.pddl4j.parser.Expression;
 
 /**
- * A <code>ProblemNotSupportedException</code> is launch to indicate that a problem is not supported by a planner.
+ * A <code>ProblemNotSupportedException</code> is launch to indicate that a
+ * problem is not supported by a planner.
  *
  * @author D. Pellier
  * @version 4.0 - 03.02.2021

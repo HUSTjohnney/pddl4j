@@ -84,7 +84,8 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
     }
 
     /**
-     * Sets the list of search strategies to used to solve a planning problem. The search strategies are tried in the
+     * Sets the list of search strategies to used to solve a planning problem. The
+     * search strategies are tried in the
      * specified order. The search stops when a search strategy succeed.
      *
      * @param strategies the list of search strategies to used.
@@ -125,18 +126,21 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
     }
 
     /**
-     * Set the name of heuristic used by the planner to the solve a planning problem.
+     * Set the name of heuristic used by the planner to the solve a planning
+     * problem.
      *
      * @param heuristic the name of the heuristic.
      */
-    public void setHeuristic(StateHeuristic.Name heuristic)  {
+    public void setHeuristic(StateHeuristic.Name heuristic) {
         this.heuristic = heuristic;
     }
 
     /**
-     * Returns the name of the heuristic used by the planner to solve a planning problem.
+     * Returns the name of the heuristic used by the planner to solve a planning
+     * problem.
      *
-     * @return the name of the heuristic used by the planner to solve a planning problem.
+     * @return the name of the heuristic used by the planner to solve a planning
+     *         problem.
      */
     public final StateHeuristic.Name getHeuristic() {
         return this.heuristic;
@@ -152,27 +156,32 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
     }
 
     /**
-     * Checks the planner configuration and returns if the configuration is valid. A configuration is valid if (1) the
-     * domain and the problem files exist and can be read, (2) the timeout is greater than 0, (3) the weight of the
-     * heuristic is greater than 0, (4) the heuristic is a not null and (5) the list of search strategies to use to
+     * Checks the planner configuration and returns if the configuration is valid. A
+     * configuration is valid if (1) the
+     * domain and the problem files exist and can be read, (2) the timeout is
+     * greater than 0, (3) the weight of the
+     * heuristic is greater than 0, (4) the heuristic is a not null and (5) the list
+     * of search strategies to use to
      * solve a planning problem is not empty.
      *
-     * @return <code>true</code> if the configuration is valid <code>false</code> otherwise.
+     * @return <code>true</code> if the configuration is valid <code>false</code>
+     *         otherwise.
      */
     public boolean hasValidConfiguration() {
         return super.hasValidConfiguration()
-            && this.getHeuristicWeight() > 0.0
-            && this.getHeuristic() != null
-            && !this.getSearchStrategies().isEmpty();
+                && this.getHeuristicWeight() > 0.0
+                && this.getHeuristic() != null
+                && !this.getSearchStrategies().isEmpty();
     }
 
     /**
-     * Throws a {@code InvalidPlannerConfigurationException} with the appropriated message or do nothing if the planner
+     * Throws a {@code InvalidPlannerConfigurationException} with the appropriated
+     * message or do nothing if the planner
      * has a valid configuration.
      */
     protected void throwInvalidConfigurationException() throws InvalidConfigurationException {
         super.throwInvalidConfigurationException();
-        if (this.getHeuristicWeight()  < 0.0) {
+        if (this.getHeuristicWeight() < 0.0) {
             throw new InvalidConfigurationException("Invalid heuristic weight");
         } else if (this.getHeuristic() == null) {
             throw new InvalidConfigurationException("Undefined heuristic");
@@ -190,10 +199,10 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
     public static PlannerConfiguration getDefaultConfiguration() {
         PlannerConfiguration config = Planner.getDefaultConfiguration();
         config.setProperty(StateSpacePlanner.SEARCH_STRATEGIES_SETTING,
-            StateSpacePlanner.DEFAULT_SEARCH_STRATEGIES.toString());
+                StateSpacePlanner.DEFAULT_SEARCH_STRATEGIES.toString());
         config.setProperty(StateSpacePlanner.HEURISTIC_SETTING, StateSpacePlanner.DEFAULT_HEURISTIC.toString());
         config.setProperty(StateSpacePlanner.WEIGHT_HEURISTIC_SETTING,
-            Double.toString(StateSpacePlanner.DEFAULT_WEIGHT_HEURISTIC));
+                Double.toString(StateSpacePlanner.DEFAULT_WEIGHT_HEURISTIC));
         return config;
     }
 
@@ -204,7 +213,7 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
      */
     @Override
     public PlannerConfiguration getConfiguration() {
-        final PlannerConfiguration config =  super.getConfiguration();
+        final PlannerConfiguration config = super.getConfiguration();
         config.setProperty(StateSpacePlanner.SEARCH_STRATEGIES_SETTING, this.getSearchStrategies().toString());
         config.setProperty(StateSpacePlanner.HEURISTIC_SETTING, this.getHeuristic().toString());
         config.setProperty(StateSpacePlanner.WEIGHT_HEURISTIC_SETTING, Double.toString(this.getHeuristicWeight()));
@@ -212,7 +221,8 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
     }
 
     /**
-     * Sets the configuration of the planner. If a planner setting is not defined in the specified configuration, the
+     * Sets the configuration of the planner. If a planner setting is not defined in
+     * the specified configuration, the
      * setting is initialized with its default value.
      *
      * @param configuration the configuration to set.
@@ -224,29 +234,31 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
             this.setSearchStrategies(StateSpacePlanner.DEFAULT_SEARCH_STRATEGIES);
         } else {
             this.setSearchStrategies(SearchStrategy.toSearchStrategies(configuration.getProperty(
-                StateSpacePlanner.SEARCH_STRATEGIES_SETTING)));
+                    StateSpacePlanner.SEARCH_STRATEGIES_SETTING)));
         }
         if (configuration.getProperty(StateSpacePlanner.WEIGHT_HEURISTIC_SETTING) == null) {
             this.setHeuristicWeight(StateSpacePlanner.DEFAULT_WEIGHT_HEURISTIC);
         } else {
             this.setHeuristicWeight(Double.parseDouble(configuration.getProperty(
-                StateSpacePlanner.WEIGHT_HEURISTIC_SETTING)));
+                    StateSpacePlanner.WEIGHT_HEURISTIC_SETTING)));
         }
         if (configuration.getProperty(StateSpacePlanner.HEURISTIC_SETTING) == null) {
             this.setHeuristic(StateSpacePlanner.DEFAULT_HEURISTIC);
         } else {
             this.setHeuristic(StateHeuristic.Name.valueOf(configuration.getProperty(
-                StateSpacePlanner.HEURISTIC_SETTING)));
+                    StateSpacePlanner.HEURISTIC_SETTING)));
         }
     }
 
     /**
-     * Search a solution plan to a specified domain and problem. The method search a solution plan by trying iteratively
+     * Search a solution plan to a specified domain and problem. The method search a
+     * solution plan by trying iteratively
      * all the search strategies defined.
      *
      * @param problem the problem to solve.
      * @return the plan found or null if no plan was found.
-     * @throws ProblemNotSupportedException if the problem to solve is not supported by the planner.
+     * @throws ProblemNotSupportedException if the problem to solve is not supported
+     *                                      by the planner.
      */
     public Plan solve(final Problem problem) throws ProblemNotSupportedException {
         if (!this.isSupported(problem)) {
@@ -260,9 +272,10 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
             final long begin = System.currentTimeMillis();
             final SearchStrategy.Name strategy = i.next();
             LOGGER.info("* Starting " + strategy.name() + " search with "
-                + this.getConfiguration().getProperty(AbstractStateSpacePlanner.HEURISTIC_SETTING) + " heuristic \n");
+                    + this.getConfiguration().getProperty(AbstractStateSpacePlanner.HEURISTIC_SETTING)
+                    + " heuristic \n");
             StateSpaceSearch search = StateSpaceSearch.getInstance(strategy, this.getHeuristic(),
-                this.getHeuristicWeight(), timeout);
+                    this.getHeuristicWeight(), timeout);
             final Node solution = search.searchSolutionNode(problem);
             plan = (SequentialPlan) search.extractPlan(solution, problem);
             if (solution != null) {
@@ -283,24 +296,26 @@ public abstract class AbstractStateSpacePlanner extends AbstractPlanner implemen
      * Returns if a specified problem is supported by the planner.
      *
      * @param problem the problem to test.
-     * @return <code>true</code> if the problem is supported <code>false</code> otherwise.
+     * @return <code>true</code> if the problem is supported <code>false</code>
+     *         otherwise.
      */
     @Override
     public boolean isSupported(Problem problem) {
         return (problem.getRequirements().contains(RequireKey.ACTION_COSTS)
-            || problem.getRequirements().contains(RequireKey.CONSTRAINTS)
-            || problem.getRequirements().contains(RequireKey.CONTINOUS_EFFECTS)
-            || problem.getRequirements().contains(RequireKey.DERIVED_PREDICATES)
-            || problem.getRequirements().contains(RequireKey.DURATIVE_ACTIONS)
-            || problem.getRequirements().contains(RequireKey.DURATION_INEQUALITIES)
-            || problem.getRequirements().contains(RequireKey.FLUENTS)
-            || problem.getRequirements().contains(RequireKey.GOAL_UTILITIES)
-            || problem.getRequirements().contains(RequireKey.METHOD_CONSTRAINTS)
-            || problem.getRequirements().contains(RequireKey.NUMERIC_FLUENTS)
-            || problem.getRequirements().contains(RequireKey.OBJECT_FLUENTS)
-            || problem.getRequirements().contains(RequireKey.PREFERENCES)
-            || problem.getRequirements().contains(RequireKey.TIMED_INITIAL_LITERALS)
-            || problem.getRequirements().contains(RequireKey.HIERARCHY))
-            ? false : true;
+                || problem.getRequirements().contains(RequireKey.CONSTRAINTS)
+                || problem.getRequirements().contains(RequireKey.CONTINOUS_EFFECTS)
+                || problem.getRequirements().contains(RequireKey.DERIVED_PREDICATES)
+                || problem.getRequirements().contains(RequireKey.DURATIVE_ACTIONS)
+                || problem.getRequirements().contains(RequireKey.DURATION_INEQUALITIES)
+                || problem.getRequirements().contains(RequireKey.FLUENTS)
+                || problem.getRequirements().contains(RequireKey.GOAL_UTILITIES)
+                || problem.getRequirements().contains(RequireKey.METHOD_CONSTRAINTS)
+                || problem.getRequirements().contains(RequireKey.NUMERIC_FLUENTS)
+                || problem.getRequirements().contains(RequireKey.OBJECT_FLUENTS)
+                || problem.getRequirements().contains(RequireKey.PREFERENCES)
+                || problem.getRequirements().contains(RequireKey.TIMED_INITIAL_LITERALS)
+                || problem.getRequirements().contains(RequireKey.HIERARCHY))
+                        ? false
+                        : true;
     }
 }

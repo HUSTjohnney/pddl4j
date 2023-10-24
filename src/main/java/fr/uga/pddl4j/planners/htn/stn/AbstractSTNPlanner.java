@@ -48,7 +48,8 @@ import java.util.Set;
 import java.util.Spliterator;
 
 /**
- * This abstract class implements the common methods of all Simple Task Network planners.
+ * This abstract class implements the common methods of all Simple Task Network
+ * planners.
  *
  * @author D. Pellier
  * @author H. Fiorino
@@ -92,7 +93,8 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
     /**
      * Returns if the planner is in interactive mode.
      *
-     * @return <code>true</code> if the planner is in interactive mode; <code>false</code> otherwise.
+     * @return <code>true</code> if the planner is in interactive mode;
+     *         <code>false</code> otherwise.
      */
     public final boolean isInteractive() {
         return this.interactive;
@@ -101,9 +103,11 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
     /**
      * Sets the planner in the interactive mode.
      *
-     * @param interactive the flag to indicate if the planner is in interactive mode or not.
+     * @param interactive the flag to indicate if the planner is in interactive mode
+     *                    or not.
      */
-    @CommandLine.Option(names = {"-i", "--interactive"}, description = "Set the planner in interactive mode for debug")
+    @CommandLine.Option(names = { "-i",
+            "--interactive" }, description = "Set the planner in interactive mode for debug")
     public final void setInteractive(final boolean interactive) {
         this.interactive = interactive;
     }
@@ -117,7 +121,7 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
     public static PlannerConfiguration getDefaultConfiguration() {
         PlannerConfiguration config = Planner.getDefaultConfiguration();
         config.setProperty(STNPlanner.INTERACTIVE_MODE_SETTING,
-            Boolean.toString(STNPlanner.DEFAULT_INTERACTIVE_MODE));
+                Boolean.toString(STNPlanner.DEFAULT_INTERACTIVE_MODE));
         return config;
     }
 
@@ -128,13 +132,14 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
      */
     @Override
     public PlannerConfiguration getConfiguration() {
-        final PlannerConfiguration config =  super.getConfiguration();
+        final PlannerConfiguration config = super.getConfiguration();
         config.setProperty(STNPlanner.INTERACTIVE_MODE_SETTING, Boolean.toString(this.isInteractive()));
         return config;
     }
 
     /**
-     * Sets the configuration of the planner. If a planner setting is not defined in the specified configuration, the
+     * Sets the configuration of the planner. If a planner setting is not defined in
+     * the specified configuration, the
      * setting is initialized with its default value.
      *
      * @param configuration the configuration to set.
@@ -150,7 +155,8 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
     }
 
     /**
-     * Computes for each task of a planning problem the maximum number of primitive tasks needed to accomplish this
+     * Computes for each task of a planning problem the maximum number of primitive
+     * tasks needed to accomplish this
      * task.
      *
      * @param problem the planning problem
@@ -165,12 +171,13 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
     }
 
     /**
-     * Computes recursively for a task of a planning problem the maximum number of primitive tasks needed to accomplish
+     * Computes recursively for a task of a planning problem the maximum number of
+     * primitive tasks needed to accomplish
      * this task.
      *
-     * @param task the task.
+     * @param task    the task.
      * @param problem the planning problem.
-     * @param closed the set of task already encountered.
+     * @param closed  the set of task already encountered.
      */
     private int cost(int task, Problem problem, Set<Integer> closed) {
         closed.add(task);
@@ -222,7 +229,6 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
         return plan;
     }
 
-
     /**
      * Extract a hierarchy from a solution node for the specified planning problem.
      *
@@ -270,7 +276,8 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
                 }
                 // Format plan
                 final Action action = problem.getActions().get(operator);
-                //plan.append(String.format("%d %s%n", indexOfSynonyms, problem.toShortString(action)));
+                // plan.append(String.format("%d %s%n", indexOfSynonyms,
+                // problem.toShortString(action)));
                 hierarchy.getPrimtiveTasks().put(indexOfSynonyms, action);
                 indexOfSynonyms++;
             } else {
@@ -323,14 +330,13 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
                     final List<Node> fchildren = new LinkedList<Node>(children);
                     Spliterator<Node> iterator = descendants.spliterator();
                     iterator.forEachRemaining(
-                        (d) -> {
-                            if (d.equals(tmpn)) {
-                                newList.addAll(fchildren);
-                            } else {
-                                newList.add(d);
-                            }
-                        }
-                    );
+                            (d) -> {
+                                if (d.equals(tmpn)) {
+                                    newList.addAll(fchildren);
+                                } else {
+                                    newList.add(d);
+                                }
+                            });
                     tmpn.parent.children = newList;
                     tmpn.parent = null;
                 } else {
@@ -369,7 +375,8 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
      * Search a plan for the current planner configuration.
      *
      * @return the solution plan or null is no solution was found.
-     * @throws InvalidConfigurationException if the planner has an invalid configuration.
+     * @throws InvalidConfigurationException if the planner has an invalid
+     *                                       configuration.
      */
     public Plan solve() throws InvalidConfigurationException {
         if (!this.hasValidConfiguration()) {
@@ -390,16 +397,16 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
         if (!errorManager.isEmpty()) {
             for (Message m : errorManager.getMessages()) {
                 if (LOGGER.isFatalEnabled()
-                    && (m.getType().equals(Message.Type.LEXICAL_ERROR)
-                    || m.getType().equals(Message.Type.PARSER_ERROR))) {
+                        && (m.getType().equals(Message.Type.LEXICAL_ERROR)
+                                || m.getType().equals(Message.Type.PARSER_ERROR))) {
                     LOGGER.fatal(m.toString());
                 } else if (LOGGER.isWarnEnabled()
-                    && m.getType().equals(Message.Type.PARSER_WARNING)) {
+                        && m.getType().equals(Message.Type.PARSER_WARNING)) {
                     LOGGER.warn(m.toString());
                 }
             }
             if (!errorManager.getMessages(Message.Type.LEXICAL_ERROR).isEmpty()
-                || !errorManager.getMessages(Message.Type.PARSER_ERROR).isEmpty()) {
+                    || !errorManager.getMessages(Message.Type.PARSER_ERROR).isEmpty()) {
                 return null;
             }
         } else if (LOGGER.isInfoEnabled()) {
@@ -418,7 +425,7 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
         begin = System.currentTimeMillis();
         Problem pb = this.instantiate(parsedProblem);
         this.getStatistics().setTimeToEncode(System.currentTimeMillis() - begin);
-        //this.getStatistics().setMemoryUsedForProblemRepresentation(MemoryAgent.getDeepSizeOf(pb));
+        // this.getStatistics().setMemoryUsedForProblemRepresentation(MemoryAgent.getDeepSizeOf(pb));
         long end = System.currentTimeMillis();
         final double instantiationTime = (end - begin) / 1000.0;
 
@@ -490,7 +497,7 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
                 }
                 if (pb.getInitialTaskNetwork() != null && pb.getInitialTaskNetwork().getTasks().contains(null)) {
                     strb.append(String.format("One or more tasks of the initial task network has no method "
-                        + "decomposition. No search will solve it.%n%n"));
+                            + "decomposition. No search will solve it.%n%n"));
                 }
                 strb.append(String.format("Encoding time        : %4.3fs%n", instantiationTime));
                 strb.append(String.format("Searching time       : %4.3fs%n", 0.0));
@@ -502,10 +509,12 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
     }
 
     /**
-     * Checks the planner configuration and returns if the configuration is valid. A configuration is valid if the
+     * Checks the planner configuration and returns if the configuration is valid. A
+     * configuration is valid if the
      * timeout allocated to the search is greter than 0.
      *
-     * @return <code>true</code> if the configuration is valide <code>false</code> otherwise.
+     * @return <code>true</code> if the configuration is valide <code>false</code>
+     *         otherwise.
      */
     @Override
     public boolean hasValidConfiguration() {
@@ -516,32 +525,35 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
      * Returns if a specified problem is supported by the planner.
      *
      * @param problem the problem to test.
-     * @return <code>true</code> if the problem is supported <code>false</code> otherwise.
+     * @return <code>true</code> if the problem is supported <code>false</code>
+     *         otherwise.
      */
     @Override
     public boolean isSupported(Problem problem) {
         return (problem.getRequirements().contains(RequireKey.ACTION_COSTS)
-            || problem.getRequirements().contains(RequireKey.CONSTRAINTS)
-            || problem.getRequirements().contains(RequireKey.CONTINOUS_EFFECTS)
-            || problem.getRequirements().contains(RequireKey.DERIVED_PREDICATES)
-            || problem.getRequirements().contains(RequireKey.DURATIVE_ACTIONS)
-            || problem.getRequirements().contains(RequireKey.DURATION_INEQUALITIES)
-            || problem.getRequirements().contains(RequireKey.FLUENTS)
-            || problem.getRequirements().contains(RequireKey.GOAL_UTILITIES)
-            || problem.getRequirements().contains(RequireKey.METHOD_CONSTRAINTS)
-            || problem.getRequirements().contains(RequireKey.NUMERIC_FLUENTS)
-            || problem.getRequirements().contains(RequireKey.OBJECT_FLUENTS)
-            || problem.getRequirements().contains(RequireKey.PREFERENCES)
-            || problem.getRequirements().contains(RequireKey.TIMED_INITIAL_LITERALS)
-            || !problem.getRequirements().contains(RequireKey.HIERARCHY))
-            ? false : true;
+                || problem.getRequirements().contains(RequireKey.CONSTRAINTS)
+                || problem.getRequirements().contains(RequireKey.CONTINOUS_EFFECTS)
+                || problem.getRequirements().contains(RequireKey.DERIVED_PREDICATES)
+                || problem.getRequirements().contains(RequireKey.DURATIVE_ACTIONS)
+                || problem.getRequirements().contains(RequireKey.DURATION_INEQUALITIES)
+                || problem.getRequirements().contains(RequireKey.FLUENTS)
+                || problem.getRequirements().contains(RequireKey.GOAL_UTILITIES)
+                || problem.getRequirements().contains(RequireKey.METHOD_CONSTRAINTS)
+                || problem.getRequirements().contains(RequireKey.NUMERIC_FLUENTS)
+                || problem.getRequirements().contains(RequireKey.OBJECT_FLUENTS)
+                || problem.getRequirements().contains(RequireKey.PREFERENCES)
+                || problem.getRequirements().contains(RequireKey.TIMED_INITIAL_LITERALS)
+                || !problem.getRequirements().contains(RequireKey.HIERARCHY))
+                        ? false
+                        : true;
     }
 
     /**
      * Instantiates the planning problem from a parsed problem.
      *
      * @param problem the problem to instantiate.
-     * @return the instantiated planning problem or null if the problem cannot be instantiated.
+     * @return the instantiated planning problem or null if the problem cannot be
+     *         instantiated.
      */
     @Override
     public Problem instantiate(final DefaultParsedProblem problem) {
@@ -562,7 +574,8 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
     }
 
     /**
-     * Node of the task decomposition. This inner class is use to produce the output of the plan in the hierarchical
+     * Node of the task decomposition. This inner class is use to produce the output
+     * of the plan in the hierarchical
      * plan validator.
      */
     private class Node {
@@ -576,7 +589,7 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
          * Create a new node with a specified parent node and task.
          *
          * @param parent the parent node.
-         * @param task the tasks.
+         * @param task   the tasks.
          */
         public Node(final Node parent, final Integer task) {
             this.task = task;
@@ -608,7 +621,7 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
          */
         public String toString() {
             return "Node [task = " + task + ", children = "
-                + children + "]";
+                    + children + "]";
         }
     }
 }

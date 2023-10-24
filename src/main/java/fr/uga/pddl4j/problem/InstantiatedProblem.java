@@ -33,7 +33,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * This class contains all the methods needed to instantiate the actions and the metods of the problem.
+ * This class contains all the methods needed to instantiate the actions and the
+ * metods of the problem.
  *
  * @author D. Pellier
  * @version 4.0 - 04.12.2020
@@ -51,7 +52,8 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     private List<Expression<Integer>> relevantPrimitiveTasks;
 
     /**
-     * The list of relevant primitive tasks in the hierarchy of task obtained by decomposing the initial task network of
+     * The list of relevant primitive tasks in the hierarchy of task obtained by
+     * decomposing the initial task network of
      * the problem.
      */
     private List<Expression<Integer>> relevantHierarchicalPrimitiveTasks;
@@ -67,7 +69,8 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     private List<Integer> relevantActions;
 
     /**
-     * The list of relevant action in the hierarchy of task obtained by decomposing the initial task network of the
+     * The list of relevant action in the hierarchy of task obtained by decomposing
+     * the initial task network of the
      * problem.
      */
     private List<Integer> relevantHierarchicalActions;
@@ -82,9 +85,12 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Returns the list of the relevant primitive tasks task of the problem. The list contains also tasks that can not
-     * be reached by decomposing the initial tasks of the problem. To get only primitive tasks produced by the
-     * hierarchical decomposition of the initial task network of the problem used the method
+     * Returns the list of the relevant primitive tasks task of the problem. The
+     * list contains also tasks that can not
+     * be reached by decomposing the initial tasks of the problem. To get only
+     * primitive tasks produced by the
+     * hierarchical decomposition of the initial task network of the problem used
+     * the method
      * {@code getHierarchicalRelevantPrimitiveTasks()}.
      *
      * @return the list of relevant primitive tasks.
@@ -95,8 +101,10 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Returns the list of the relevant primitive tasks of the problem that are present in the task decomposition of the
-     * problem. To get all the primitive tasks used the method {@code getRelevantPrimitiveTasks()}.
+     * Returns the list of the relevant primitive tasks of the problem that are
+     * present in the task decomposition of the
+     * problem. To get all the primitive tasks used the method
+     * {@code getRelevantPrimitiveTasks()}.
      *
      * @return the list of hierarchical relevant primitive tasks.
      * @see InstantiatedProblem#getRelevantPrimitiveTasks
@@ -106,7 +114,8 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Return the list of relevant compound tasks of the problem. A compound task is relevant if it can be reach by
+     * Return the list of relevant compound tasks of the problem. A compound task is
+     * relevant if it can be reach by
      * decomposing the initial tasks of the problem.
      *
      * @return the list of relevant compound tasks of the problem.
@@ -116,9 +125,12 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Returns the list of relevant actions of the problem. The list contains also action that can not be reached by
-     * decomposing the initial tasks of the problem. To get only actions produced by the hierarchical decomposition of
-     * the initial task network of the problem used the method {@code getRelevantHierarchicalActions()}.
+     * Returns the list of relevant actions of the problem. The list contains also
+     * action that can not be reached by
+     * decomposing the initial tasks of the problem. To get only actions produced by
+     * the hierarchical decomposition of
+     * the initial task network of the problem used the method
+     * {@code getRelevantHierarchicalActions()}.
      *
      * @return the list of relevant actions of the problem.
      * @see InstantiatedProblem#getRelevantHierarchicalActions
@@ -128,7 +140,8 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Returns the list of the relevant actions of the problem that are present in the task decomposition of the
+     * Returns the list of the relevant actions of the problem that are present in
+     * the task decomposition of the
      * problem. To get all the actions used the method {@code getRelevantActions()}.
      *
      * @return the list of hierarchical relevant primitive tasks.
@@ -199,15 +212,19 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
         return this.instantiate(action, Integer.MAX_VALUE);
     }
 
-
     /**
      * Instantiates a specified action.
      * <p>
-     * The assumption is made that different action parameters are instantiated with different
-     * constants, i.e., the planner never generates actions like move(a,a) because we consider this
-     * as a bad domain representation that should be revised. In fact, in actions with identical
-     * constant parameters, all but one of the constants are superfluous and can be skipped from the
-     * representation without loss of information. Warning this assumption make the process no-sound.
+     * The assumption is made that different action parameters are instantiated with
+     * different
+     * constants, i.e., the planner never generates actions like move(a,a) because
+     * we consider this
+     * as a bad domain representation that should be revised. In fact, in actions
+     * with identical
+     * constant parameters, all but one of the constants are superfluous and can be
+     * skipped from the
+     * representation without loss of information. Warning this assumption make the
+     * process no-sound.
      * </p>
      *
      * @param action  the action.
@@ -217,7 +234,7 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
      * @see IntAction
      */
     private void instantiate(final IntAction action, final int index, final int bound,
-                             final List<IntAction> actions) {
+            final List<IntAction> actions) {
         if (bound == actions.size()) {
             return;
         }
@@ -265,15 +282,17 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Make the preinstantion of a method based on the argument used in the tasks accomplish by the method.
+     * Make the preinstantion of a method based on the argument used in the tasks
+     * accomplish by the method.
      *
      * @param method the method to instantiate.
-     * @param index  the index of the parameter to instantiate. Initially, the index is set to 0.
+     * @param index  the index of the parameter to instantiate. Initially, the index
+     *               is set to 0.
      * @param bound  a bound on the number of methods to instantiate.
      * @param task   the tasks that accomplish the method.
      */
     private void instantiate(final IntMethod method, final int index, final int bound,
-                             final List<IntMethod> methods, final Expression<Integer> task) {
+            final List<IntMethod> methods, final Expression<Integer> task) {
         final Expression<Integer> t = method.getTask();
         final IntMethod copy = new IntMethod(method);
         boolean instantiable = true;
@@ -303,11 +322,16 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     /**
      * Instantiates a specified method. This method used brut force.
      * <p>
-     * The assumption is made that different method parameters are instantiated with different
-     * constants, i.e., the planner never generates methods like move(a,a) because we consider this
-     * as a bad domain representation that should be revised. In fact, in methods with identical
-     * constant parameters, all but one of the constants are superfluous and can be skipped from the
-     * representation without loss of information. Warning this assumption make the process no-sound.
+     * The assumption is made that different method parameters are instantiated with
+     * different
+     * constants, i.e., the planner never generates methods like move(a,a) because
+     * we consider this
+     * as a bad domain representation that should be revised. In fact, in methods
+     * with identical
+     * constant parameters, all but one of the constants are superfluous and can be
+     * skipped from the
+     * representation without loss of information. Warning this assumption make the
+     * process no-sound.
      * </p>
      *
      * @param method  the method.
@@ -317,7 +341,7 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
      * @see IntMethod
      */
     private void instantiate(final IntMethod method, final int index, final int bound,
-                             final List<IntMethod> methods) {
+            final List<IntMethod> methods) {
         if (bound == methods.size()) {
             return;
         }
@@ -384,7 +408,7 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
      * Instantiates a specified task network.
      *
      * @param network  the action.
-     * @param index   the index of the parameter to instantiate.
+     * @param index    the index of the parameter to instantiate.
      * @param networks the list of tasknetwork already instantiated.
      * @see IntAction
      */
@@ -421,7 +445,8 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
      * Instantiates a specified task network.
      *
      * @param network the task network to instantiate.
-     * @return the list of task netwok instantiated corresponding the specified network.
+     * @return the list of task netwok instantiated corresponding the specified
+     *         network.
      */
     private List<IntTaskNetwork> instantiate(final IntTaskNetwork network) {
         final List<IntTaskNetwork> instNetwork = new ArrayList<>(100);
@@ -434,7 +459,7 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
      */
     protected void instantiateGoal() {
         // Expand the quantified expression in the goal
-        this.getIntGoal().expandQuantifiedExpression(this.getDomains(),this);
+        this.getIntGoal().expandQuantifiedExpression(this.getDomains(), this);
     }
 
     /**
@@ -487,7 +512,8 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
         // Init the set used to store the primtive tasks
         final Set<Expression<Integer>> primtive = new LinkedHashSet<>();
 
-        // Init the table used to store for each task the list of methods that are relevant
+        // Init the table used to store for each task the list of methods that are
+        // relevant
         this.relevantMethods = new ArrayList<List<Integer>>();
 
         // Init the list of methods to instantiate
@@ -534,7 +560,7 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
             final List<Integer> relevantIndex = new ArrayList<>();
             for (IntMethod method : meths) {
                 if (method.getTask().getSymbol().equals(task.getSymbol())
-                    && method.getTask().getArguments().size() == task.getArguments().size()) {
+                        && method.getTask().getArguments().size() == task.getArguments().size()) {
                     final List<IntMethod> instantiated = new ArrayList<>(100);
                     this.instantiate(method, 0, Integer.MAX_VALUE, instantiated, task);
                     for (IntMethod instance : instantiated) {
@@ -572,11 +598,13 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
             instMethods.addAll(relevant);
         }
 
-        // Initialize the table of relevant methods for each compund task and the table of relevant compound tasks
+        // Initialize the table of relevant methods for each compund task and the table
+        // of relevant compound tasks
         this.relevantCompoundTasks = new ArrayList<>(compound.size());
         this.relevantCompoundTasks.addAll(compound);
 
-        // Initialize the table of relevant actions for each primitive task and the table of relevant primitive tasks
+        // Initialize the table of relevant actions for each primitive task and the
+        // table of relevant primitive tasks
         this.relevantActions = new ArrayList<Integer>(primitiveTaskSet.size());
         this.relevantHierarchicalActions = new ArrayList<Integer>(primitiveTaskSet.size());
         this.relevantPrimitiveTasks = new ArrayList<>(primitiveTaskSet.size());
@@ -620,8 +648,10 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Expands the quantified expression contained in the preconditions of the methods in parameter and simplify the
-     * their precondition. If the preconditions can be simplied to false, the method simplified is removed.
+     * Expands the quantified expression contained in the preconditions of the
+     * methods in parameter and simplify the
+     * their precondition. If the preconditions can be simplied to false, the method
+     * simplified is removed.
      *
      * @param methods the list of methods to process.
      */
@@ -638,10 +668,12 @@ public abstract class InstantiatedProblem extends PreInstantiatedProblem {
     }
 
     /**
-     * Computes the list of possible primitive tasks from the action already instantiated.
+     * Computes the list of possible primitive tasks from the action already
+     * instantiated.
      *
      * @param actions the list of actions already instantiated.
-     * @return the list of possible primitive tasks from the action already instantiated.
+     * @return the list of possible primitive tasks from the action already
+     *         instantiated.
      */
     private LinkedHashSet<Expression<Integer>> computePrimitiveTaskSet(List<IntAction> actions) {
         LinkedHashSet<Expression<Integer>> tasks = new LinkedHashSet<>();
