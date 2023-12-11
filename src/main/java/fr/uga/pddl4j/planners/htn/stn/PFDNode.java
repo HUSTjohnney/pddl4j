@@ -55,6 +55,7 @@ public final class PFDNode extends AbstractSTNNode {
     }
 
     /**
+     * 这个节点应该是算法的搜索节点，节点的状态和待处理的任务网络。
      * Creates a new node with a specified state and task network. The parent node is set to null, the operator is set
      * to DEFAULT_OPERATOR and the task is set to DEFAULT_TASK.
      *

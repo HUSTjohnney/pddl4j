@@ -5,10 +5,11 @@
 - 将 STN 的那套逻辑对 HDDL 进行扩展，再实现算法 实现 THTNPlanner
 - 将测控资源那套逻辑对 HDDL 语法进行扩展，再实现 TRHTNPlanner
 
+### PDDL4j 笔记整理
 
-### PDDL4j 笔记
+- PFD.java: Partial Order Forward Decomposition 部分序的分解算法
+- TFD.java: Total Order Forward Decomposition 全序的分解算法
 
----
 
 # PDDL4J library
 

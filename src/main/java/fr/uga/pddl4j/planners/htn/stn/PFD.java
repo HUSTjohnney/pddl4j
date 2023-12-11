@@ -32,8 +32,10 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
- * This class implement a simple task network planner enable to deal with partial ordered htn representation. The
- * search method is an implementation of the partial order STN procedure describes in the book of Automated Planning of
+ * This class implement a simple task network planner enable to deal with
+ * partial ordered htn representation. The
+ * search method is an implementation of the partial order STN procedure
+ * describes in the book of Automated Planning of
  * Ghallab and al. page 243.
  *
  * <pre>
@@ -60,7 +62,10 @@ import java.util.PriorityQueue;
  * }
  * </pre>
  *
- * <p>Commande line example:</p>
+ * <p>
+ * Commande line example:
+ * </p>
+ * 
  * <pre>
  * {@code
  *     java -cp build/libs/pddl4j-4.0-all.jar fr.uga.pddl4j.planners.htn.stn.PFDPlanner
@@ -75,17 +80,8 @@ import java.util.PriorityQueue;
  *
  * @see fr.uga.pddl4j.planners.PlannerConfiguration
  */
-@CommandLine.Command(name = "PFD",
-    version = "PFD 2.0",
-    description = "Solves a specified planning problem using a Partial-order Forward Decomposition strategy.",
-    sortOptions = false,
-    mixinStandardHelpOptions = true,
-    headerHeading = "Usage:%n",
-    synopsisHeading = "%n",
-    descriptionHeading = "%nDescription:%n%n",
-    parameterListHeading = "%nParameters:%n",
-    optionListHeading = "%nOptions:%n")
-public final class  PFD extends AbstractSTNPlanner {
+@CommandLine.Command(name = "PFD", version = "PFD 2.0", description = "Solves a specified planning problem using a Partial-order Forward Decomposition strategy.", sortOptions = false, mixinStandardHelpOptions = true, headerHeading = "Usage:%n", synopsisHeading = "%n", descriptionHeading = "%nDescription:%n%n", parameterListHeading = "%nParameters:%n", optionListHeading = "%nOptions:%n")
+public final class PFD extends AbstractSTNPlanner {
 
     /**
      * The logger of the class.
@@ -109,12 +105,15 @@ public final class  PFD extends AbstractSTNPlanner {
     }
 
     /**
-     * Solves the planning problem and returns the first solution search found. The search method is an implementation
-     * of the partial order STN procedure describes in the book of Automated Planning of Ghallab and al. page 243.
+     * Solves the planning problem and returns the first solution search found. The
+     * search method is an implementation
+     * of the partial order STN procedure describes in the book of Automated
+     * Planning of Ghallab and al. page 243.
      *
      * @param problem the problem to be solved.
      * @return a solution search or null if it does not exist.
-     * @throws ProblemNotSupportedException if the problem to solve is not supported by the planner.
+     * @throws ProblemNotSupportedException if the problem to solve is not supported
+     *                                      by the planner.
      */
     @Override
     public Plan solve(final Problem problem) throws ProblemNotSupportedException {
@@ -138,7 +137,7 @@ public final class  PFD extends AbstractSTNPlanner {
         Plan plan = null;
 
         // Get the timeout for searching
-        final int timeout = this.getTimeout() * 1000;
+        final int timeout = this.getTimeout() * 1000;// default time out是600s 也就是10min
         final long start = System.currentTimeMillis();
         long elapsedTime = 0;
 
@@ -158,9 +157,9 @@ public final class  PFD extends AbstractSTNPlanner {
 
             // If the task network has no more task, a solution is found
             if (currentNode.getTaskNetwork().isEmpty()) {
-                if (currentNode.getState().satisfy(problem.getGoal())) {
+                if (currentNode.getState().satisfy(problem.getGoal())) {// 不管满不满足goal，都返回plan，return结果。
                     return super.extractPlan(currentNode, problem);
-                }  else {
+                } else {
                     if (LOGGER.isDebugEnabled()) {
                         Plan p = super.extractPlan(currentNode, problem);
                         LOGGER.debug("Found plan but goal not reached as follows:\n" + problem.toString(p) + "\n");
@@ -168,6 +167,7 @@ public final class  PFD extends AbstractSTNPlanner {
                 }
             } else {
                 // Get the list of tasks of the current node with no predecessors
+                // 在此节点下，处理所有No predecessor的任务。
                 currentNode.getTaskNetwork().getOrderingConstraints().transitiveClosure();
                 final List<Integer> tasks = currentNode.getTaskNetwork().getTasksWithNoPredecessors();
 
@@ -183,8 +183,8 @@ public final class  PFD extends AbstractSTNPlanner {
                             final Action action = problem.getActions().get(operator);
                             if (this.isInteractive()) {
                                 LOGGER.info("\n======> Try to decompose primitive tasks "
-                                    + problem.toString(problem.getTasks().get(taskIndex)) + " with \n\n"
-                                    + problem.toString(action));
+                                        + problem.toString(problem.getTasks().get(taskIndex)) + " with \n\n"
+                                        + problem.toString(action));
 
                                 LOGGER.info("=> Current state:");
                                 LOGGER.info(problem.toString(currentNode.getState()));
@@ -197,33 +197,11 @@ public final class  PFD extends AbstractSTNPlanner {
                                 childNode.getTaskNetwork().removeTask(task);
                                 childNode.setTask(taskIndex);
                                 open.add(childNode);
-                                if (this.isInteractive()) {
-                                    LOGGER.info("=====> Decomposition succeeded push node:");
-                                    LOGGER.info(problem.toString(childNode.getState()));
-                                    LOGGER.info(problem.toString(problem.getTasks().get(childNode.getTask())));
-                                    for (int t : childNode.getTaskNetwork().getTasks()) {
-                                        LOGGER.info(problem.toString(problem.getTasks().get(t)));
-                                    }
-                                    LOGGER.info("=> New state:");
-                                    LOGGER.info(problem.toString(childNode.getState()));
-                                }
-                            } else {
-                                if (this.isInteractive()) {
-                                    LOGGER.info("=====> Decomposition failed");
-                                }
-                            }
-                            if (this.isInteractive()) {
-                                AbstractSTNPlanner.waitPressAnyKey();
                             }
                         }
                     } else { // Case of compund tasks
                         for (Integer operator : relevantOperators) {
-                            final Method method = problem.getMethods().get(operator);
-                            if (this.isInteractive()) {
-                                LOGGER.info("\n======> Try to decompose compound tasks "
-                                    + problem.toString(problem.getTasks().get(taskIndex)) + " with\n\n"
-                                    + problem.toString(method));
-                            }
+                            final Method method = problem.getMethods().get(operator); // 这里没太看懂，为啥还是operator。
                             if (state.satisfy(method.getPrecondition())) {
                                 final PFDNode childNode = new PFDNode(currentNode);
                                 childNode.setParent(currentNode);

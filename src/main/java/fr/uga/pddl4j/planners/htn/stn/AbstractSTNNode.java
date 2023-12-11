@@ -26,6 +26,7 @@ import java.io.Serializable;
  * @version 1.0 - 25.06.2020
  * @since 4.0
  */
+
 public abstract class AbstractSTNNode implements Serializable {
 
     /**
