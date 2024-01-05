@@ -23,7 +23,8 @@ import fr.uga.pddl4j.planners.statespace.HSP;
 import java.io.FileNotFoundException;
 
 /**
- * The class is an example. It shows how to create a planner by programming and running it.
+ * The class is an example. It shows how to create a planner by programming and
+ * running it.
  *
  * @author D. Pellier
  * @version 4.0 - 30.11.2021
