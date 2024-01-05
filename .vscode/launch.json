@@ -1,0 +1,105 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "DirectPlannerConfigurationExample",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.examples.DirectPlannerConfigurationExample",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "PDDLParserExample",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.examples.PDDLParserExample",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "PlannerConfigurationExample",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.examples.PlannerConfigurationExample",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "ProblemInstantiationExample",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.examples.ProblemInstantiationExample",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "ASP",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.examples.asp.ASP",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "Parser",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.parser.Parser",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "PFD",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.planners.htn.stn.PFD",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "TFD",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.planners.htn.stn.TFD",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "FF",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.planners.statespace.FF",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "GSP",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.planners.statespace.GSP",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "HSP",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.planners.statespace.HSP",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "DefaultProblem",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.problem.DefaultProblem",
+            "projectName": "pddl4j"
+        },
+        {
+            "type": "java",
+            "name": "TemporalOrderingConstraintNetwork",
+            "request": "launch",
+            "mainClass": "fr.uga.pddl4j.problem.time.TemporalOrderingConstraintNetwork",
+            "projectName": "pddl4j"
+        }
+    ]
+}

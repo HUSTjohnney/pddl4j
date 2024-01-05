@@ -19,6 +19,7 @@ import fr.uga.pddl4j.heuristics.state.StateHeuristic;
 import fr.uga.pddl4j.planners.InvalidConfigurationException;
 import fr.uga.pddl4j.planners.LogLevel;
 import fr.uga.pddl4j.planners.Planner;
+import fr.uga.pddl4j.planners.htn.stn.TFD;
 import fr.uga.pddl4j.planners.statespace.HSP;
 
 import java.io.FileNotFoundException;
@@ -41,22 +42,26 @@ public class PlannerConfigurationExample {
     public static void main(String[] args) {
 
         // The path to the benchmarks directory
-        final String benchmarks = "src/test/resources/benchmarks/pddl/ipc2002/depots/strips-automatic/";
+        //final String benchmarks = "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\satellite\\";
+
+        String path = "D:\\git workspace\\Tex_WorkSpace\\001 SpaceStationMissionPlanning\\002 Experiment&Result\\Instance\\";
+
+
 
         // Gets the default configuration from the planner
         fr.uga.pddl4j.planners.PlannerConfiguration config = HSP.getDefaultConfiguration();
         // Sets the domain of the problem to solve
-        config.setProperty(HSP.DOMAIN_SETTING, benchmarks + "domain.pddl");
+        config.setProperty(HSP.DOMAIN_SETTING, path + "domain.pddl");
         // Sets the problem to solve
-        config.setProperty(HSP.PROBLEM_SETTING, benchmarks + "p01.pddl");
+        config.setProperty(HSP.PROBLEM_SETTING, path+ "p01.pddl");
         // Sets the timeout allocated to the search.
         config.setProperty(HSP.TIME_OUT_SETTING, 1000);
         // Sets the log level
         config.setProperty(HSP.LOG_LEVEL_SETTING, LogLevel.INFO);
         // Sets the heuristic used to search
-        config.setProperty(HSP.HEURISTIC_SETTING, StateHeuristic.Name.MAX);
-        // Sets the weight of the heuristic
-        config.setProperty(HSP.WEIGHT_HEURISTIC_SETTING, 1.2);
+        //config.setProperty(TFD.HEURISTIC_SETTING, StateHeuristic.Name.MAX);
+        //Sets the weight of the heuristic
+        //config.setProperty(TFD.WEIGHT_HEURISTIC_SETTING, 1.2);
 
         // Creates an instance of the HSP planner with the specified configuration
         Planner planner = Planner.getInstance(Planner.Name.HSP, config);
