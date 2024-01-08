@@ -54,7 +54,7 @@ public class PlannerConfigurationExample {
         // Sets the problem to solve
         config.setProperty(HSP.PROBLEM_SETTING, path + "p01.pddl");
         // Sets the timeout allocated to the search.
-        config.setProperty(HSP.TIME_OUT_SETTING, 100);// 100s
+        config.setProperty(HSP.TIME_OUT_SETTING, 1000);// 100s
         //  Set the level of trace of the planner: ALL, DEBUG,
         // INFO, ERROR, FATAL, OFF, TRACE (preset INFO)
         config.setProperty(HSP.LOG_LEVEL_SETTING, LogLevel.INFO); // 有几种log的level，根据需要返回需要的值
