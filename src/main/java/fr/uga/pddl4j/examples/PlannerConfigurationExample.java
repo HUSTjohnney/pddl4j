@@ -45,7 +45,7 @@ public class PlannerConfigurationExample {
         // final String benchmarks =
         // "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\satellite\\";
 
-        String path = "D:\\git workspace\\Tex_WorkSpace\\001 SpaceStationMissionPlanning\\002 Experiment&Result\\Instance\\";
+        String path = "D:\\git workspace\\Tex_WorkSpace\\001 SpaceStationMissionPlanning\\002 Experiment&Result\\Instance2.0\\";
 
         // Gets the default configuration from the planner
         fr.uga.pddl4j.planners.PlannerConfiguration config = HSP.getDefaultConfiguration();
@@ -57,7 +57,7 @@ public class PlannerConfigurationExample {
         config.setProperty(HSP.TIME_OUT_SETTING, 100);// 100s
         //  Set the level of trace of the planner: ALL, DEBUG,
         // INFO, ERROR, FATAL, OFF, TRACE (preset INFO)
-        config.setProperty(HSP.LOG_LEVEL_SETTING, LogLevel.DEBUG); // 有几种log的level，根据需要返回需要的值
+        config.setProperty(HSP.LOG_LEVEL_SETTING, LogLevel.INFO); // 有几种log的level，根据需要返回需要的值
 
         // Sets the heuristic used to search
         // config.setProperty(TFD.HEURISTIC_SETTING, StateHeuristic.Name.MAX);
