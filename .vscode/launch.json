@@ -6,6 +6,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "FileProcessor",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.FileProcessor",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "FilePreprocessor",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.FilePreprocessor",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
       "name": "DirectPlannerConfigurationExample",
       "request": "launch",
       "mainClass": "fr.uga.pddl4j.examples.DirectPlannerConfigurationExample",
