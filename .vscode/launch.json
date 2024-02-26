@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "PDDLParserExample",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.examples.PDDLParserExample",
+      "projectName": ""
+    },
+    {
+      "type": "java",
       "name": "DirectPlannerConfigurationExample",
       "request": "launch",
       "mainClass": "fr.uga.pddl4j.examples.DirectPlannerConfigurationExample",
