@@ -49,6 +49,7 @@ public class BellmanFord {
         }
 
         // Check for negative-weight cycles
+        // 如果存在负环值 说明时态网络不一致。
         for (int j = 0; j < edgeCount; ++j) {
             int u = edges[j].source;
             int v = edges[j].target;

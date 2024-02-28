@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LabeledTemporalConstraint {
-    String node1; // 节点1
-    String node2; // 节点2
-    String value; // 取值，如果有的话
-    List<LabelItem> label; // 标签
+    private String node1; // 节点1
+    private String node2; // 节点2
+    private String value; // 取值，如果有的话
+    private List<LabelItem> label; // 标签
 
     public LabeledTemporalConstraint(String node1, String node2, String value, String label) {
         this.node1 = node1;
@@ -18,10 +18,9 @@ public class LabeledTemporalConstraint {
 
     @Override
     public String toString() {
-        return "Node1: " + node1 + ", Node2: " + node2 + ", Operator: <= " + 
+        return "Node1: " + node1 + ", Node2: " + node2 + ", Operator: <= " +
                 ", Value: " + value + ", Label: " + label;
     }
-
 
     // 解析Label
     private static List<LabelItem> parseLabel(String labelStr) {

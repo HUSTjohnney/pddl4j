@@ -1,8 +1,8 @@
 package fr.uga.pddl4j.labeledSTN;
 
 public class LabelItem {
-    String variable;
-    String value;
+    private String variable;
+    private String value;
 
     public LabelItem(String variable, String value) {
         this.variable = variable;
