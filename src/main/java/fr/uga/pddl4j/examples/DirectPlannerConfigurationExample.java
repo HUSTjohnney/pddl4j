@@ -39,7 +39,7 @@ public class DirectPlannerConfigurationExample {
     public static void main(String[] args) {
 
         // The path to the benchmarks directory
-        final String benchmarks = "src\\test\\resources\\benchmarks\\pddl\\ipc2002\\depots\\strips-automatic\\";
+        final String benchmarks = "src\\test\\resources\\safeInstance\\";
 
         // Creates the planner
         HSP planner = new HSP();
