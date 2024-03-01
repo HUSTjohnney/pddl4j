@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "HTNPlannerConfigurationExample",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.examples.HTNPlannerConfigurationExample",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
       "name": "FileProcessor",
       "request": "launch",
       "mainClass": "fr.uga.pddl4j.labeledSTN.FileProcessor",
