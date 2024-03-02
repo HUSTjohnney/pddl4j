@@ -22,7 +22,7 @@
 		(HasVehicleRental) ;; 表示有租用车辆渠道
 		(HasGunClub) ;; 表示存在枪支俱乐部
 		(HasGunStore) ;; 表示存在枪械商店
-		(KnifeControl) ;; 表示管控刀具购买
+		;;(KnifeControl) ;; 表示管控刀具购买
 		(PhysicalFitness)
 
 		(Scouted ?l - location) ;; 表示已侦察某地点
@@ -33,15 +33,16 @@
 
 		(SkillMakeExplosive ?bt - bombtype) ;; 表示有制作特定类型炸药的技能
 		(SkillUseGun ?gt - gantype) ;; 表示有使用特定类型枪支的技能
+		(haveExplosiveMaterial) ;; 购买到爆炸物了
 
 		(IntentionSuicideAttack) ;; 罪犯有进行自杀攻击的意图
 
 		(financialavilable) ;; 表示财务状况充足
 
-		(RegisteredForGunClub) ;; 表示已注册枪支俱乐部
+		;;(RegisteredForGunClub) ;; 表示已注册枪支俱乐部
 		(GunPurchaseRecord) ;; 表示存在枪支购买记录
 
-		(achieve_suicide_attack ?l - location ?t - tool) ;; 表示自杀行动完成。目的地为l，采用工具t
+		(achieve_attack ?l - location ?t - tool) ;; 表示行动完成。目的地为l，采用工具t
 	)
 
 	;; 走访排查
@@ -82,15 +83,15 @@
 		)
 	)
 
-	;; 枪支和炸药培训
-	(:action firearms_explosives_training
-		:parameters (?bt - bombtype ?gt - gantype)
-		:precondition ()
-		:effect (and
-			(SkillMakeExplosive ?bt)
-			(SkillUseGun ?gt)
-		)
-	)
+	; ;; 入伍后枪支学习
+	; (:action firearms_explosives_training
+	; 	:parameters (?bt - bombtype ?gt - gantype)
+	; 	:precondition ()
+	; 	:effect (and
+	; 		(SkillMakeExplosive ?bt)
+	; 		(SkillUseGun ?gt)
+	; 	)
+	; )
 
 	;; 获得资金
 	(:action acquire_funds
@@ -103,7 +104,8 @@
 	(:action register_agriculture_company
 		:parameters (?b - biochemical ?bt - bombtype)
 		:precondition (financialavilable)
-		:effect (and (QualifiedForbiochemical ?b) ;; 假设注册农业公司使得所有类型的炸药购买资格都得到了
+		:effect (and 
+			(QualifiedForbiochemical ?b) ;; 假设注册农业公司使得所有类型的炸药购买资格都得到了
 			(QualifiedForbombtype ?bt))
 	)
 
@@ -112,22 +114,20 @@
 		:parameters (?b - biochemical ?bt - bombtype)
 		:precondition (financialavilable)
 		:effect (and
-			(QualifiedForbiochemical ?b) ;; 假设注册农业公司使得所有类型的炸药购买资格都得到了
-			(QualifiedForbombtype ?bt)
-
-			(available ?b) ;; 生化材料可用
+			(QualifiedForbiochemical ?b) ;; 获得生化材料购买资格
+			(QualifiedForbombtype ?bt) ;; 获得爆炸材料购买资格
 		)
 	)
 
-	;; 获取炸药
+	;; 购买爆炸物材料
 	(:action acquire_explosives
 		:parameters (?bt - bombtype)
 		:precondition (and
-			(financialavilable)
-			(QualifiedForbombtype ?bt)
+			(financialavilable) ;; 有经济实力
+			(QualifiedForbombtype ?bt) ;; 有购买许可
 		)
 		:effect (and
-			(available ?bt)
+			(haveExplosiveMaterial)
 			(not (financialavilable))
 		)
 	)
@@ -137,6 +137,7 @@
 		:parameters (?bt - bombtype)
 		:precondition (and
 			(SkillMakeExplosive ?bt)
+			(haveExplosiveMaterial)
 		)
 		:effect (available ?bt)
 	)
@@ -174,8 +175,8 @@
 	(:action rent_vehicle
 		:parameters (?v - vehicle)
 		:precondition (and
-			(financialavilable)
-			(HasVehicleRental)
+			(financialavilable) ;; 经济实力充裕
+			(HasVehicleRental) ;; 存在租车地方
 		)
 		:effect (and
 			(available ?v)
@@ -186,24 +187,23 @@
 	;; 盗窃车辆
 	(:action steal_vehicle
 		:parameters (?v - vehicle)
-		:precondition (and 
+		:precondition (and
 			(not (financialavilable))
 		)
-		:effect (and 
+		:effect (and
 			(available ?v)
 		)
 	)
-	
 
 	;; 注册枪支俱乐部
 	(:action register_for_gun_club
 		:parameters ()
 		:precondition (and
 			(financialavilable)
-			(HasGunClub)
+
 		)
 		:effect (and
-			(RegisteredForGunClub)
+			(HasGunClub)
 			(not (financialavilable)) ;; 注册后财务状况改变
 		)
 	)
@@ -221,30 +221,45 @@
 		)
 	)
 
-	;; 自杀攻击准备
-	(:action prepare_suicide_attack_bybomb
-		:parameters (?bt - bombtype ?l - location)
+	;; 自杀式爆炸案
+	(:action suicide_attack_bybomb
+		:parameters (?bt - bombtype ?l - location ?v - vehicle)
 		:precondition (and
 			(IntentionSuicideAttack)
 			(available ?bt)
 			(criminalAt ?l)
 			(LocationConfirmed ?l)
+			(available ?v) ;; 车辆可用
 		)
 		:effect (and
-			(achieve_suicide_attack ?l ?bt)
+			(achieve_attack ?l ?bt)
 		)
 	)
 
-	(:action prepare_suicide_attack_bygan
+	;; 枪击事件
+	(:action attack_bygan
 		:parameters (?gt - gantype ?l - location)
 		:precondition (and
-			(IntentionSuicideAttack)
 			(available ?gt)
 			(criminalAt ?l)
 			(LocationConfirmed ?l)
 		)
 		:effect (and
-			(achieve_suicide_attack ?l ?gt)
+			(achieve_attack ?l ?gt)
 		)
 	)
+
+	;; 遥控爆炸
+	(:action explosives_attack
+		:parameters (?b - bombtype ?l - location)
+		:precondition (and
+			(not (criminalAt ?l)) ;; 罪犯不在攻击地点
+			(available ?b)
+			(LocationConfirmed ?l)
+		)
+		:effect (and
+			(achieve_attack ?l ?b)
+		)
+	)
+
 )
