@@ -5,10 +5,12 @@
         ; school_l1 school_l11 church_12 church_l6 church_l14 square_l4 square_l13 market_l5 bar_l9 - attacklocation
         l1 l2 l3 l4 l5 l6 l7 l8 l9 l10 l11 l12 l13 l14 - location
         v1 - vehicle
-        bomb1 - bombtype
-        peroxide rifle pistol - gantype
-        axe1 - axe
-        bio1 - biochemical
+        ; nitride peroxide - bombtype
+        bomb - bombtype
+        ; shotgun rifle pistol - guntype
+        gun - guntype
+        bio - biochemical
+        c1 - criminal
     )
 
     (:init
@@ -28,38 +30,22 @@
         (Connect l13 l10)(Connect l13 l14)
         (Connect l14 l12)(Connect l14 l13)
 
-        (criminalAt l1) ;; 初始罪犯位点
-
-        ; (Connect location2 l3)
-        (HasOnlineLearningResource bomb1)
-        ;(HasVehicleRental)
-        (HasGunClub)
-        (HasGunStore)
-        (available axe1)
-        (PhysicalFitness)
-        (IntentionSuicideAttack) ;; 有进行自杀攻击的意图
-
-        ;; 假设初始状态中，某些资源或条件尚未满足
-        ; (not (Scouted l3))
-        ; (not (c))
-        ; (not (SkillMakeExplosive bomb1))
-        ; (not (available bomb1))
-        ; ; (not (available bomb1))
-        ; (not (available gantype1))
-        ; (not (VehicleAvailable v1))
-        ; (not (BioMaterialAvailable biochemical1))
+        (criminalAt l1 c1) ;; 初始罪犯位点
+        ;;(criminalAt l2 c2) ;; 初始罪犯2
+        (HasOnlineLearningResource bomb)
+        (CityHasVehicleRental l8)
+        (CityHasGunClub l5) ;; 俱乐部位置
+        (CityHasGunStore l9) ;; 黑市位置
+        (PhysicalFitness c1)
+        (IntentionSuicideAttack c1) ;; 有进行自杀攻击的意图
     )
 
     (:goal
         (and
-            ; (LocationConfirmed l3) ;; 确认攻击地点
-            (available bomb1) ;; 炸弹准备好
-            (available v1) ;; 车辆准备好
-            ;(available rifle)
-            ;;(achieve_attack l8 pistol) ;; 手枪式袭击
-
-           (achieve_attack l4 bomb1) ;; 爆炸式袭击
-
+            ; (achieve_attack l4 bomb) ;; 爆炸式袭击
+            ; (achieve_attack l7 gun) ;; 枪械袭击
+            ; (achieve_attack l10 bio) ;; 生化炸弹投放
+            (achieve_attack l7 v1);; 车辆冲撞。
         )
     )
 )
