@@ -18,6 +18,10 @@ package fr.uga.pddl4j.examples;
 import fr.uga.pddl4j.heuristics.state.StateHeuristic;
 import fr.uga.pddl4j.planners.InvalidConfigurationException;
 import fr.uga.pddl4j.planners.LogLevel;
+import fr.uga.pddl4j.planners.Planner;
+import fr.uga.pddl4j.planners.PlannerConfiguration;
+import fr.uga.pddl4j.planners.htn.stn.PFD;
+import fr.uga.pddl4j.planners.htn.stn.TFD;
 import fr.uga.pddl4j.planners.statespace.HSP;
 
 import java.io.FileNotFoundException;
@@ -29,7 +33,7 @@ import java.io.FileNotFoundException;
  * @author D. Pellier
  * @version 4.0 - 30.11.2021
  */
-public class DirectPlannerConfigurationExample {
+public class HTNPlannerConfigurationExample {
 
     /**
      * The main method of the class.
@@ -39,29 +43,36 @@ public class DirectPlannerConfigurationExample {
     public static void main(String[] args) {
 
         // The path to the benchmarks directory
-        final String benchmarks = "src\\test\\resources\\safeInstance\\";
-
-        // Creates the planner
-        HSP planner = new HSP();
+        final String benchmarks = "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\rover\\";
+        
+        // Gets the default configuration from the planner
+        PlannerConfiguration config = TFD.getDefaultConfiguration();
         // Sets the domain of the problem to solve
-        planner.setDomain(benchmarks + "domain.pddl");
+        config.setProperty(TFD.DOMAIN_SETTING, benchmarks + "domain.hddl");
         // Sets the problem to solve
-        planner.setProblem(benchmarks + "p01.pddl");
-        // Sets the timeout of the search in seconds
-        planner.setTimeout(1000);
-        // Sets log level
-        planner.setLogLevel(LogLevel.INFO);
-        // Selects the heuristic to use
-        planner.setHeuristic(StateHeuristic.Name.MAX);
+        config.setProperty(TFD.PROBLEM_SETTING, benchmarks + "p01.hddl");
+        // Sets the timeout allocated to the search.
+        config.setProperty(TFD.TIME_OUT_SETTING, 10); // 设定搜索最大时间为10s
+        // Sets the log level
+        config.setProperty(TFD.LOG_LEVEL_SETTING, LogLevel.INFO);
+        
+        config.setProperty(TFD.INTERACTIVE_MODE_SETTING, "true");
+        
+        // Sets the heuristic used to search
+        // config.setProperty(TFD.HEURISTIC_SETTING, StateHeuristic.Name.MAX);
         // Sets the weight of the heuristic
-        planner.setHeuristicWeight(1.2);
-
-        // Solve and print the result
+        // config.setProperty(TFD.WEIGHT_HEURISTIC_SETTING, 1.2);
+        
+        // Creates an instance of the HSP planner with the specified configuration
+        Planner planner = Planner.getInstance(Planner.Name.TFD, config);
+        
+        System.out.println("start solving...");
+        // Runs the planner and print the solution
         try {
-            planner.solve();
+        planner.solve();
         } catch (InvalidConfigurationException e) {
-            e.printStackTrace();
+        e.printStackTrace();
         }
-
+        
+       }
     }
-}

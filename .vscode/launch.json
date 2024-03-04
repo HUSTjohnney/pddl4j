@@ -6,10 +6,59 @@
   "configurations": [
     {
       "type": "java",
-      "name": "PDDLParserExample",
+      "name": "Conflict",
       "request": "launch",
-      "mainClass": "fr.uga.pddl4j.examples.PDDLParserExample",
-      "projectName": ""
+      "mainClass": "fr.uga.pddl4j.labeledSTN.Conflict",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "EnviUtils",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.EnviUtils",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "LabeledValueSet",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.LabeledValueSet",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "EnvironmentUtils",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.EnvironmentUtils",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "BellmanFord",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.BellmanFord",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "HTNPlannerConfigurationExample",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.examples.HTNPlannerConfigurationExample",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "FileProcessor",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.FileProcessor",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "FilePreprocessor",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.FilePreprocessor",
+      "projectName": "pddl4j"
     },
     {
       "type": "java",

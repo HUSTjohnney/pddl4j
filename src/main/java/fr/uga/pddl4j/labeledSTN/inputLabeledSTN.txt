@@ -1,0 +1,13 @@
+{T0.e-Z<1000, null}{T0.s-Z>0, null}
+{T1.e<T2.s,null}{T1.e<T3.s,null}{T1.e-T4.s<0,null}{T5.e-T6.s<50, null}{T6.e-T7.s<50, null}
+{T5.e<T2.s, null}{T6.e<T2.s, null}{T7.e<T2.s, null}
+{T8.e<T9.s, null}{T8.e>T9.s,null}
+{T9.s-Z>0, null}{T8.e-T8.s<20, null}{T8.e-T8.s>20, null}{T9.e-T9.s<60, null}{T9.e-T9.s>60, null}
+{T8.s-Z>0, R_T8=ID1}{T8.e-Z<150, R_T8=ID1}
+{T8.s-Z>650, R_T8=ID5}{T8.e-Z<800, R_T8=ID5}
+{T8.s-Z>400, R_T8=ID4}{T8.e-Z<700, R_T8=ID4}
+{T9.s-Z>0, R_T9=ID1}{T9.e-Z<150, R_T9=ID1}
+{T8.s-Z>650, R_T9=ID5}{T9.e-Z<800, R_T9=ID5}
+{T8.s-Z>400, R_T9=ID4}{T9.e-Z<700, R_T9=ID4}
+{T8.e-T9.s<0, R_T9=ID1 R_T8=ID1 B_T8T9=1}
+{T9.e-T8.s<0, R_T9=ID1 R_T8=ID1 B_T8T9=0}
