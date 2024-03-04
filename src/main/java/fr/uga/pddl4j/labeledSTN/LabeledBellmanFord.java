@@ -1,32 +1,34 @@
 package fr.uga.pddl4j.labeledSTN;
 
 import java.util.Arrays;
+import java.util.Map;
 
-class Edge {
+class LabeledEdge {
     int source;
     int target;
     int weight;
+    Map<String, Integer> labeled;
 
-    public Edge(int source, int target, int weight) {
+    public LabeledEdge(int source, int target, int weight) {
         this.source = source;
         this.target = target;
         this.weight = weight;
     }
 }
 
-public class BellmanFord {
+public class LabeledBellmanFord {
     private int vertices;
-    private LabeledEdge[] edges;
+    private Edge[] edges;
     private int edgeCount;
 
-    public BellmanFord(int vertices, int maxEdges) {
+    public LabeledBellmanFord(int vertices, int maxEdges) {
         this.vertices = vertices;
-        this.edges = new LabeledEdge[maxEdges];
+        this.edges = new Edge[maxEdges];
         this.edgeCount = 0;
     }
 
     public void addEdge(int source, int target, int weight) {
-        edges[edgeCount++] = new LabeledEdge(source, target, weight);
+        edges[edgeCount++] = new Edge(source, target, weight);
     }
 
     public boolean bellmanFord(int src) {
@@ -73,7 +75,7 @@ public class BellmanFord {
     public static void main(String[] args) {
         int vertices = 5; // 顶点数
         int edges = 8; // 边数
-        BellmanFord graph = new BellmanFord(vertices, edges);
+        LabeledBellmanFord graph = new LabeledBellmanFord(vertices, edges);
 
         // 添加边。例如：graph.addEdge(0, 1, -1) 表示从顶点0到顶点1的权重为-1的边
         // 这里添加STN中的约束作为边

@@ -6,6 +6,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "EnvironmentUtils",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.EnvironmentUtils",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "BellmanFord",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.BellmanFord",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
       "name": "HTNPlannerConfigurationExample",
       "request": "launch",
       "mainClass": "fr.uga.pddl4j.examples.HTNPlannerConfigurationExample",
