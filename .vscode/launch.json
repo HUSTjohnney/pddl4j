@@ -6,6 +6,27 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Conflict",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.Conflict",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "EnviUtils",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.EnviUtils",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
+      "name": "LabeledValueSet",
+      "request": "launch",
+      "mainClass": "fr.uga.pddl4j.labeledSTN.LabeledValueSet",
+      "projectName": "pddl4j"
+    },
+    {
+      "type": "java",
       "name": "EnvironmentUtils",
       "request": "launch",
       "mainClass": "fr.uga.pddl4j.labeledSTN.EnvironmentUtils",
