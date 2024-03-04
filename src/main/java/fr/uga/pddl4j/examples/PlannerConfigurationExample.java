@@ -45,7 +45,11 @@ public class PlannerConfigurationExample {
         // final String benchmarks =
         // "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\satellite\\";
 
+<<<<<<< HEAD
         String path = "src\\test\\resources\\example\\";
+=======
+        String path = "D:\\git workspace\\Tex_WorkSpace\\001 SpaceStationMissionPlanning\\002 Experiment&Result\\01PDDLInstance\\";
+>>>>>>> 7bf36fa70753bc65bbc893813ffdde56f6173399
 
         // Gets the default configuration from the planner
         fr.uga.pddl4j.planners.PlannerConfiguration config = HSP.getDefaultConfiguration();
