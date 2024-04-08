@@ -157,14 +157,14 @@ public final class PFD extends AbstractSTNPlanner {
 
             // If the task network has no more task, a solution is found
             if (currentNode.getTaskNetwork().isEmpty()) {
-                if (currentNode.getState().satisfy(problem.getGoal())) {// 不管满不满足goal，都返回plan，return结果。
+                // if (currentNode.getState().satisfy(problem.getGoal())) {// 不管满不满足goal，都返回plan，return结果。
                     return super.extractPlan(currentNode, problem);
-                } else {
-                    if (LOGGER.isDebugEnabled()) {
-                        Plan p = super.extractPlan(currentNode, problem);
-                        LOGGER.debug("Found plan but goal not reached as follows:\n" + problem.toString(p) + "\n");
-                    }
-                }
+                // } else {
+                //     if (LOGGER.isDebugEnabled()) {
+                //         Plan p = super.extractPlan(currentNode, problem);
+                //         LOGGER.debug("Found plan but goal not reached as follows:\n" + problem.toString(p) + "\n");
+                //     }
+                // }
             } else {
                 // Get the list of tasks of the current node with no predecessors
                 // 在此节点下，处理所有No predecessor的任务。

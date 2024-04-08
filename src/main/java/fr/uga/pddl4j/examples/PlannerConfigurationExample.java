@@ -50,7 +50,7 @@ public class PlannerConfigurationExample {
         // Sets the domain of the problem to solve
         config.setProperty(PFD.DOMAIN_SETTING, benchmarks + "domain.hddl");
         // Sets the problem to solve
-        config.setProperty(PFD.PROBLEM_SETTING, benchmarks + "p01.hddl");
+        config.setProperty(PFD.PROBLEM_SETTING, benchmarks + "p15.hddl");
         // Sets the timeout allocated to the search.
         config.setProperty(PFD.TIME_OUT_SETTING, 1000);// 100s
         // Set the level of trace of the planner: ALL, DEBUG,
@@ -69,6 +69,7 @@ public class PlannerConfigurationExample {
         try {
             planner.solve();
             // planner.getLogLevel().toString();
+            System.out.println("solve susseccefully!");
 
         } catch (InvalidConfigurationException e) {
             e.printStackTrace();

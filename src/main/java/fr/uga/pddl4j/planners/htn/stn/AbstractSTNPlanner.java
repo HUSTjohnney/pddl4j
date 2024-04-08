@@ -226,7 +226,7 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
             n = n.getParent();
         }
         plan.setHierarchy(this.extractHierarchy(node, problem));
-        System.out.println(problem.toString(plan));
+        //System.out.println(problem.toString(plan));
         return plan;
     }
 
@@ -465,9 +465,9 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
                 if (LOGGER.isFatalEnabled()) {
                     LOGGER.fatal(e.getMessage() + "\n");
                 }
-            } finally {
-                System.exit(0);
-            }
+            } //finally {
+                //System.exit(0);
+            //}
 
             // Print plan solution
             StringBuilder strb = new StringBuilder();

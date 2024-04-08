@@ -38,7 +38,7 @@
 	(:htn
 		:parameters ()
 		:subtasks (and
-		 (task0 (get_soil_data waypoint5))
+		 (task0 (get_soil_data waypoint5)) ;;只要任务是一模一样的，就做不了了。waypoint改成2就无解了。
 		 (task1 (get_soil_data waypoint2))
 		 (task2 (get_soil_data waypoint8))
 		 (task3 (get_soil_data waypoint10))
