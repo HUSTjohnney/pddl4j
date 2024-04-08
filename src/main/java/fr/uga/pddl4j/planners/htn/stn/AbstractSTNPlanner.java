@@ -226,6 +226,7 @@ public abstract class AbstractSTNPlanner extends AbstractHTNPlanner implements S
             n = n.getParent();
         }
         plan.setHierarchy(this.extractHierarchy(node, problem));
+        System.out.println(problem.toString(plan));
         return plan;
     }
 

@@ -19,6 +19,7 @@ import fr.uga.pddl4j.heuristics.state.StateHeuristic;
 import fr.uga.pddl4j.planners.InvalidConfigurationException;
 import fr.uga.pddl4j.planners.LogLevel;
 import fr.uga.pddl4j.planners.Planner;
+import fr.uga.pddl4j.planners.htn.stn.PFD;
 import fr.uga.pddl4j.planners.htn.stn.TFD;
 import fr.uga.pddl4j.planners.statespace.HSP;
 
@@ -42,26 +43,19 @@ public class PlannerConfigurationExample {
     public static void main(String[] args) {
 
         // The path to the benchmarks directory
-        // final String benchmarks =
-        // "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\satellite\\";
-
-<<<<<<< HEAD
-        String path = "src\\test\\resources\\example\\";
-=======
-        String path = "D:\\git workspace\\Tex_WorkSpace\\001 SpaceStationMissionPlanning\\002 Experiment&Result\\01PDDLInstance\\";
->>>>>>> 7bf36fa70753bc65bbc893813ffdde56f6173399
+        final String benchmarks = "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\rover\\";
 
         // Gets the default configuration from the planner
-        fr.uga.pddl4j.planners.PlannerConfiguration config = HSP.getDefaultConfiguration();
+        fr.uga.pddl4j.planners.PlannerConfiguration config = PFD.getDefaultConfiguration();
         // Sets the domain of the problem to solve
-        config.setProperty(HSP.DOMAIN_SETTING, path + "domain.pddl");
+        config.setProperty(PFD.DOMAIN_SETTING, benchmarks + "domain.hddl");
         // Sets the problem to solve
-        config.setProperty(HSP.PROBLEM_SETTING, path + "p01.pddl");
+        config.setProperty(PFD.PROBLEM_SETTING, benchmarks + "p01.hddl");
         // Sets the timeout allocated to the search.
-        config.setProperty(HSP.TIME_OUT_SETTING, 1000);// 100s
-        //  Set the level of trace of the planner: ALL, DEBUG,
+        config.setProperty(PFD.TIME_OUT_SETTING, 1000);// 100s
+        // Set the level of trace of the planner: ALL, DEBUG,
         // INFO, ERROR, FATAL, OFF, TRACE (preset INFO)
-        config.setProperty(HSP.LOG_LEVEL_SETTING, LogLevel.INFO); // 有几种log的level，根据需要返回需要的值
+        config.setProperty(PFD.LOG_LEVEL_SETTING, LogLevel.INFO); // 有几种log的level，根据需要返回需要的值
 
         // Sets the heuristic used to search
         // config.setProperty(TFD.HEURISTIC_SETTING, StateHeuristic.Name.MAX);
@@ -69,14 +63,13 @@ public class PlannerConfigurationExample {
         // config.setProperty(TFD.WEIGHT_HEURISTIC_SETTING, 1.2);
 
         // Creates an instance of the HSP planner with the specified configuration
-        Planner planner = Planner.getInstance(Planner.Name.HSP, config);
-        
+        Planner planner = Planner.getInstance(Planner.Name.PFD, config);
 
         // Runs the planner and print the solution
         try {
             planner.solve();
             // planner.getLogLevel().toString();
-            
+
         } catch (InvalidConfigurationException e) {
             e.printStackTrace();
         }
