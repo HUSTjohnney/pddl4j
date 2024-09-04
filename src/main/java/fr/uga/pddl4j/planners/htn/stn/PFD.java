@@ -174,8 +174,8 @@ public final class PFD extends AbstractSTNPlanner {
                 // Get the current state of the search
                 final State state = currentNode.getState();
                 // For each task with no predecessors
-                for (Integer task : tasks) {
-                    int taskIndex = currentNode.getTaskNetwork().getTasks().get(task);
+                for (Integer t : tasks) {
+                    int taskIndex = currentNode.getTaskNetwork().getTasks().get(t);
                     final List<Integer> relevantOperators = problem.getTaskResolvers().get(taskIndex);
                     // Case of primitive tasks
                     if (problem.getTasks().get(taskIndex).isPrimtive()) {
@@ -194,7 +194,7 @@ public final class PFD extends AbstractSTNPlanner {
                                 childNode.setParent(currentNode);
                                 childNode.setOperator(operator);
                                 childNode.getState().apply(action.getConditionalEffects());
-                                childNode.getTaskNetwork().removeTask(task);
+                                childNode.getTaskNetwork().removeTask(t);
                                 childNode.setTask(taskIndex);
                                 open.add(childNode);
                             }
@@ -206,7 +206,7 @@ public final class PFD extends AbstractSTNPlanner {
                                 final PFDNode childNode = new PFDNode(currentNode);
                                 childNode.setParent(currentNode);
                                 childNode.setOperator(problem.getActions().size() + operator);
-                                childNode.getTaskNetwork().decompose(task, method);
+                                childNode.getTaskNetwork().decompose(t, method);
                                 childNode.setTask(taskIndex);
                                 open.add(childNode);
                                 if (this.isInteractive()) {

@@ -21,7 +21,7 @@ import fr.uga.pddl4j.planners.LogLevel;
 import fr.uga.pddl4j.planners.Planner;
 import fr.uga.pddl4j.planners.PlannerConfiguration;
 import fr.uga.pddl4j.planners.htn.stn.PFD;
-import fr.uga.pddl4j.planners.htn.stn.TFD;
+import fr.uga.pddl4j.planners.htn.stn.PFD;
 import fr.uga.pddl4j.planners.statespace.HSP;
 
 import java.io.FileNotFoundException;
@@ -43,28 +43,28 @@ public class HTNPlannerConfigurationExample {
     public static void main(String[] args) {
 
         // The path to the benchmarks directory
-        final String benchmarks = "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\rover\\";
+        final String benchmarks = "src\\test\\resources\\benchmarks\\hddl\\ipc2020\\satellite\\";
         
         // Gets the default configuration from the planner
-        PlannerConfiguration config = TFD.getDefaultConfiguration();
+        PlannerConfiguration config = PFD.getDefaultConfiguration();
         // Sets the domain of the problem to solve
-        config.setProperty(TFD.DOMAIN_SETTING, benchmarks + "domain.hddl");
+        config.setProperty(PFD.DOMAIN_SETTING, benchmarks + "domain.hddl");
         // Sets the problem to solve
-        config.setProperty(TFD.PROBLEM_SETTING, benchmarks + "p01.hddl");
+        config.setProperty(PFD.PROBLEM_SETTING, benchmarks + "p02.hddl");
         // Sets the timeout allocated to the search.
-        config.setProperty(TFD.TIME_OUT_SETTING, 10); // 设定搜索最大时间为10s
+        config.setProperty(PFD.TIME_OUT_SETTING, 10); // 设定搜索最大时间为10s
         // Sets the log level
-        config.setProperty(TFD.LOG_LEVEL_SETTING, LogLevel.INFO);
+        config.setProperty(PFD.LOG_LEVEL_SETTING, LogLevel.INFO);
         
-        config.setProperty(TFD.INTERACTIVE_MODE_SETTING, "true");
+        config.setProperty(PFD.INTERACTIVE_MODE_SETTING, "true");
         
         // Sets the heuristic used to search
-        // config.setProperty(TFD.HEURISTIC_SETTING, StateHeuristic.Name.MAX);
+        // config.setProperty(PFD.HEURISTIC_SETTING, StateHeuristic.Name.MAX);
         // Sets the weight of the heuristic
-        // config.setProperty(TFD.WEIGHT_HEURISTIC_SETTING, 1.2);
+        // config.setProperty(PFD.WEIGHT_HEURISTIC_SETTING, 1.2);
         
         // Creates an instance of the HSP planner with the specified configuration
-        Planner planner = Planner.getInstance(Planner.Name.TFD, config);
+        Planner planner = Planner.getInstance(Planner.Name.PFD, config);
         
         System.out.println("start solving...");
         // Runs the planner and print the solution
